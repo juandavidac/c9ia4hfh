@@ -7,6 +7,19 @@ class RoomsController < ApplicationController
     @room = Room.new
   end
 
+  def edit
+    @room = Room.find(params[:id])
+  end
+
+  def update
+    @room = Room.find(params[:id])
+      if @room.update(room_params)
+        redirect_to rooms_path, notice: "La habitación ha sido modificada con éxito"
+      else
+        render :edit
+      end
+  end
+
   def create
     @room = Room.new(room_params)
     if @room.save
